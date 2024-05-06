@@ -62,21 +62,21 @@ class UnionFind:
 
     def connected_components(self, graph, weighted=False):
         # create a set for each node
-        for node in graph.nodes:
-            self.make_set(node)
+        for u in graph.nodes:
+            self.make_set(u)
         edges = []
-        for node, neighbors in enumerate(graph.adjacency_list):
-            for neighbor in neighbors:
-                if neighbor > node:
-                    edges.append((node, neighbor))
+        for u, neighbors in enumerate(graph.adjacency_list):
+            for v in neighbors:
+                if v > u:
+                    edges.append((u, v))
         # shuffle the edges to make weighted union more likely to happen
         random.shuffle(edges)
-        for node, neighbor in edges:  # iterate over all edges
-            if self.find(node) != self.find(neighbor):
+        for u, v in edges:  # iterate over all edges
+            if self.find(u) != self.find(v):
                 if weighted:
-                    self.weighted_union(node, neighbor)
+                    self.weighted_union(u, v)
                 else:
-                    self.union(node, neighbor)
+                    self.union(u, v)
 
     def print_connected_components(self):
         printed_lists = []
