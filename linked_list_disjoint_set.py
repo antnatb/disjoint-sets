@@ -1,5 +1,6 @@
 import random
 
+
 class Item:
     def __init__(self, value):
         # value of the item
@@ -53,15 +54,13 @@ class UnionFind:
             self.sets[current.value] = self.sets[u]
             current = current.next
 
-    def weighed_union(self, u, v):
-        if self.sets[u].size < self.sets[v].size: # if u is smaller than v, swap them
+    def weighted_union(self, u, v):
+        if self.sets[u].size < self.sets[v].size:  # if u is smaller than v, swap them
             self.union(v, u)
-            # print("saved some time")
         else:
             self.union(u, v)
-            # print("didn't need to save time")
 
-    def connected_components(self, graph, weighed = False):
+    def connected_components(self, graph, weighted=False):
         # create a set for each node
         for node in graph.nodes:
             self.make_set(node)
@@ -70,20 +69,20 @@ class UnionFind:
             for neighbor in neighbors:
                 if neighbor > node:
                     edges.append((node, neighbor))
-        # shuffle the edges to make weighed union more likely to happen
+        # shuffle the edges to make weighted union more likely to happen
         random.shuffle(edges)
-        for node, neighbor in edges: # iterate over all edges
+        for node, neighbor in edges:  # iterate over all edges
             if self.find(node) != self.find(neighbor):
-                if weighed:
-                    self.weighed_union(node, neighbor)
+                if weighted:
+                    self.weighted_union(node, neighbor)
                 else:
                     self.union(node, neighbor)
 
     def print_connected_components(self):
         printed_lists = []
-        for linked_list in self.sets.values(): # iterate over all sets
+        for linked_list in self.sets.values():  # iterate over all sets
             current = linked_list.head
-            if current not in printed_lists: # avoid printing the same list twice
+            if current not in printed_lists:  # avoid printing the same list twice
                 printed_lists.append(current)
                 while current is not None:
                     print(current.value, end='')

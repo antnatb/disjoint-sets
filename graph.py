@@ -1,5 +1,6 @@
 import random
 
+
 class Graph:
     def __init__(self, num_nodes, density):
         if density < 0 or density > 1:
@@ -16,6 +17,7 @@ class Graph:
                 self.adjacency_list[node1].append(node2)
                 self.adjacency_list[node2].append(node1)
                 edges_generated += 1
+
     def print_edges(self):
         n_edges = 0
         for node, neighbors in enumerate(self.adjacency_list):
@@ -23,6 +25,4 @@ class Graph:
                 if neighbor > node:
                     print(f"({node}, {neighbor})")
                     n_edges += 1
-        print (f"Total number of edges: {n_edges}")
-
-
+        print(f"Total number of edges: {n_edges}")
