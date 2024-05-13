@@ -2,13 +2,10 @@ import random
 
 
 class Graph:
-    def __init__(self, num_nodes, density):
-        if density < 0 or density > 1:
-            raise ValueError("Density must be between 0 and 1")
+    def __init__(self, num_nodes, num_edges):
         self.nodes = [i for i in range(num_nodes)]
         self.adjacency_list = [[] for _ in range(num_nodes)]
-        max_edges = num_nodes * (num_nodes - 1) // 2
-        num_edges = int(density * max_edges)
+        self.num_edges = num_edges
         edges_generated = 0
         while edges_generated < num_edges:
             node1 = random.choice(self.nodes)
